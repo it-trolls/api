@@ -31,10 +31,10 @@ exports.user_create_post = function (req, res) {
   try {
     const User = new userModel(
       {
-        usuario: 'gaston',
-        contraseña: '123456',
-        created_at: 'string',
-        updated_at: 'String',
+        username: 'testUser',
+        password: 'regnum',
+        name: 'gaston',
+        mail: 'regnum@gmail.com.ar',
         token: 'String'
       }
     );

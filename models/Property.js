@@ -2,45 +2,121 @@ import mongoose from 'mongoose';
 var Schema = mongoose.Schema;
 
 var property = new Schema({
-  antiguedad: Number,
-  descripcion: String,
-  disposicion: String,
-  garage: String,
-  localidad: String,
-  direccion: String,
-  precio: String,
-  supCubierta: String,
-  barrio: String,
-  cantBanos: 0,
-  cantHab: 0,
-  estado: String,
-  patio: Boolean,
-  operacion: [
+  antiquity: {
+    type: Number,
+    required: false,
+  },
+  description: {
+    type: String,
+    required: false,
+  },
+  provision: { //disposicion: frente, pasillo
+    type: String,
+    required: false
+  }, 
+  garage: {
+    type: String,
+    required: false
+  },
+  location: {
+    type: String,
+    required: true
+  },
+  address: {
+    type: String,
+    required: true
+  },
+  price: {
+    type: Number,
+    required: false
+  },
+  coveredArea: { //superficie cubierta
+    type: Number,
+    required: false
+  },
+  neighborhood: { //barrio
+    type: String,
+    required: false
+  },
+  bathrooms: {
+    type: Number,
+    required: true
+  },
+  bedrooms: {
+    type: Number,
+    required: true
+  },
+  state: { //vendido, alquilado
+    type: String,
+    required: false
+  }, 
+  garden: {
+    type: Boolean,
+    required: false
+  },
+  operation: [
     {
-      Alquiler: Boolean,
-      Compra: Boolean,
-      Venta: Boolean,
+      rental: { //alquiler
+        type: Boolean,
+        required: false
+      },
+      purchase: {
+        type: Boolean,
+        required: false
+      },
+      sale: {
+        type: Boolean,
+        required: false
+      },
     }
   ],
-  tipo: [
+  type: [
     {
-      casa: Boolean,
-      departamento: Boolean,
+      house: {
+        type: Boolean,
+        required: false
+      },
+      department: {
+        type: Boolean,
+        required: false
+      },
     }
   ],
-  servicios: [
+  services: [
     {
-      agua: Boolean,
-      calefaccion: Boolean,
-      cloacas: Boolean,
-      eletricidad: Boolean,
-      gas: Boolean
+      water: {
+        type: Boolean,
+        required: false
+      },
+      heating: { //calefacción
+        type: Boolean,
+        required: false
+      },
+      sewer: { //cloacas
+        type: Boolean,
+        required: false
+      },
+      electricity: {
+        type: Boolean,
+        required: false
+      },
+      gas: {
+        type: Boolean,
+        required: false
+      },
     }
   ],
-  fotos: [
-    { url: String }
+  pictures: [
+    { url: {
+        type: String,
+        required: false
+      } 
+    }
   ]
 });
+
+
+
 
 const propertyModel = mongoose.model('property', property);
 
