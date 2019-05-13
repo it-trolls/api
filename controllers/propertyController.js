@@ -36,19 +36,19 @@ exports.property_list = function (req, res) {
 exports.property_create_post = function (req, res) { 
   try {
     const Property = new propertyModel({
-      antiguedad: '1',
-      descripcion: 'nuevomodel',
-      disposicion: 'test',
-      estado: 'test',
-      garage: 'test',
-      localidad: 'test',
-      direccion: 'test',
-      patio: false,
-      precio: 123,
-      supCubierta: 'test',
-      barrio: 'test',
-      cantBanos: 1,
-      cantHab: 1,
+      antiquity: 1,
+      description: 'nuevomodel',
+      provision: 'frente',
+      state: 'alquilado',
+      garage: false,
+      location: 'test',
+      address: 'alfredo caseros 69',
+      garden: false,
+      price: 123,
+      coveredArea: 1234,
+      neighborhood: 'Brasca',
+      bathrooms: 1,
+      bedrooms: 1,
     })
 
     Property.save()

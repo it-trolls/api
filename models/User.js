@@ -2,19 +2,58 @@ import mongoose from 'mongoose';
 var Schema = mongoose.Schema;
 
 var user = new Schema({
-  usuario: String,
-  contraseña: String,
-  permiso: String,
-  nombre: String,
-  mail: String,
-  dni: Number,
-  tel: [
-    { nro: String }
+  username: {
+    type: String,
+    required: true,
+    // unique: true
+  },
+  password: { 
+    type: String,
+    required: true
+  },
+  permission: {
+    type: String,
+    required: false
+  },
+  name: { 
+    type: String,
+    required: false,
+  },
+  mail: { 
+    type: String,
+    required: true,
+    // unique: true //con esto salta: (node:15680) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+  },
+  dni: {
+    type: String,
+    required: false,
+  },
+  phone: [
+    { 
+      phoneNumber: {
+        type: String,
+        required: false,
+      }
+    }
   ],
-  created_at: String,
-  updated_at: String,
-  token: String,
+  created_at: {
+    type: Date,
+    dafault: Date.now()
+  },
+  updated_at: {
+    type: Date,
+    dafault: Date.now()
+  },
+  delete_at: {
+    type: Date
+  },
+  token: {
+    type: String,
+    required: true,
+  },
 })
+
+//falta encriptar el password: md5, brcypt ?
 
 const userModel = mongoose.model('User', user);
 
