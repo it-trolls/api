@@ -17,6 +17,6 @@ router.post('/create', propertyController.property_create_post); //controlller.m
 router.post('/delete/:id', propertyController.property_delete_post);
 
 // POST request to update property.
-router.post('/update/:id', propertyController.property_delete_post);
+router.post('/update/:id', propertyController.property_update_post);
 
 module.exports = router;

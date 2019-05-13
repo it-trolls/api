@@ -79,5 +79,39 @@ exports.property_delete_post = function (req, res) {
 
 // POST request to update property
 exports.property_update_post = function (req, res) {
-  res.send('NOT IMPLEMENTED: property update POST');
+  let propertyUpdated =
+  {
+    antiquity: req.body.antiquity,
+    description: req.body.description,
+    provision: req.body.provision,
+    state: req.body.state,
+    garage: req.body.garage,
+    location: req.body.location,
+    address: req.body.address,
+    garden: req.body.garden,
+    price: req.body.price,
+    coveredArea: req.body.coveredArea,
+    neighborhood: req.body.neighborhood,
+    bathrooms: req.body.bathrooms,
+    bedrooms: req.body.bedrooms,
+  };
+
+  console.clear();
+  console.log('req', req.params);
+  console.log('req body', req.body);
+  try {
+    propertyModel.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $set: propertyUpdated },
+      { new: false },
+
+      (err, property) => {
+        if (err) return res.status(500).send(err);
+        return res.json(property); //retorna el viejo
+      }
+    )
+  }
+  catch (error) {
+    console.log(error);
+  }
 }

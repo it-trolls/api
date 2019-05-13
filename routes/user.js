@@ -15,5 +15,11 @@ router.post('/delete/:id', userController.user_delete_post);
 
 // POST request to update user.
 router.post('/update/:id', userController.user_update_post);
+// router.post('/update/:id', (req, res) => {
+//   console.clear();
+//   console.log(req.params);
+//   console.log(req.body);
+//   res.json({ msg: "user update works" })
+// });
 
 module.exports = router;

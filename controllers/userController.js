@@ -65,6 +65,34 @@ exports.user_delete_post = function (req, res) {
 }
 
 //actualizar un usuario
-exports.user_update_post = function (req, res) { 
-  res.send('NOT IMPLEMENTED: user update POST');
+exports.user_update_post = function (req, res) {
+
+  let userUpdated = 
+    {
+      username: req.body.username,
+      password: req.body.password,
+      name: req.body.name,
+      mail: req.body.mail,
+      token: req.body.token
+    };
+
+  console.clear();
+  console.log('req',req.params); 
+  console.log('req body',req.body); 
+  try {
+    userModel.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $set: userUpdated },
+      { new: true },
+
+      (err, user) => {
+        if (err) return res.status(500).send(err);
+        return res.json(user);
+      }
+    )
+  }
+  catch(error) {
+    console.log(error);
+  }
+  
 }
