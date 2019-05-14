@@ -1,31 +1,30 @@
 import userModel from '../models/User';
 
 //info de todos los usuarios
-exports.user_list = function (req, res) {
+exports.userList = async (req, res) => {
   try {
-    userModel.find({}).then(eachOne => {
-      res.json(eachOne);
-    })
+    const users = await userModel.find({});
+    res.status(200).json(users);
   } catch (error) {
-    console.log(error);
+    res.status(400).send({ message: 'error', error });
   }
 }
 
 //info de un usuario especifico
-exports.user_detail = async (req, res) => {
+exports.userDetail = async (req, res) => {
   //recupero el id pasado por param
   const idUser = req.params.id;
 
   try {
     const user = await userModel.findById(idUser);
-    res.status(200).send({ data: user })
+    res.status(200).json(user);
   } catch(error) {
     res.status(400).send({ message: 'error', error });
   }
 }
 
 //crear un usuario
-exports.user_create_post = function (req, res) {
+exports.userCreate = async (req, res) => {
   try {
     const User = new userModel(
       {
@@ -36,34 +35,28 @@ exports.user_create_post = function (req, res) {
         token: 'String'
       }
     );
-    User.save()
-      .then((user) => console.log(user))
-      .catch(error => console.log(error))
-
-    res.json(User);
-
+    const user = await User.save();
+    res.status(200).json(user);
   } catch (error) {
-    console.log(error);
+    res.status(400).send({ message: 'error', error });
   }
 }
 
 //borrar un usuario
-exports.user_delete_post = function (req, res) {
+exports.userDelete = async (req, res) =>{
   try {
     //recupero el id pasado por param
     const idUser = req.params.id;
 
-    userModel.findOneAndRemove({ _id: idUser }, function (err) {
-      res.json('ok');
-    });
-
+    const user = await userModel.findOneAndRemove({ _id: idUser });
+    res.status(200).json(user);
   } catch (error) {
-    console.log(error);
+    res.status(400).send({ message: 'error', error });
   }
 }
 
 //actualizar un usuario
-exports.user_update_post = function (req, res) {
+exports.userUpdate = async (req, res) => {
 
   let userUpdated = 
     {
@@ -78,19 +71,15 @@ exports.user_update_post = function (req, res) {
   console.log('req',req.params); 
   console.log('req body',req.body); 
   try {
-    userModel.findByIdAndUpdate(
+    const user = await userModel.findByIdAndUpdate(
       { _id: req.params.id },
       { $set: userUpdated },
       { new: true },
-
-      (err, user) => {
-        if (err) return res.status(500).send(err);
-        return res.json(user);
-      }
     )
+    res.status(200).json(user);
   }
   catch(error) {
-    console.log(error);
+    res.status(400).send({ message: 'error', error });
   }
   
 }

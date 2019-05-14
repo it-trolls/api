@@ -1,39 +1,30 @@
 import propertyModel from '../models/Property';
 
-exports.index = function (req, res) {
-  res.send('NOT IMPLEMENTED: Site Home Page');
-};
-
 // GET request for one property
-exports.property_detail = function (req, res) {
+exports.propertyDetail = async (req, res) => {
   try {
     //recupero el id pasado por param
     const idProperty = req.params.id;
 
-    propertyModel.findById(idProperty, function (err, item) {
-      res.status(200).send({ data: item })
-      res.status(400).send({ message: 'error' });
-    });
-
+    const property = propertyModel.findById(idProperty);
+    res.status(200).json(property);
   } catch (error) {
-    console.log(error);
+    res.status(400).send({ message: 'error', error });
   }
 }
 
 // GET request for all propertys.
-exports.property_list = function (req, res) {
+exports.propertyList = async (req, res) => {
   try {
-    propertyModel.find({}).then(eachOne => {
-      res.json(eachOne);
-    })
-
+    const propertys = await propertyModel.find({});
+    res.status(200).json(propertys);
   } catch (error) {
-    console.log(error);
+    res.status(400).send({ message: 'error', error });
   }
 }
 
 // POST request create property
-exports.property_create_post = function (req, res) { 
+exports.propertyCreate = async (req, res) => { 
   try {
     const Property = new propertyModel({
       antiquity: 1,
@@ -51,34 +42,28 @@ exports.property_create_post = function (req, res) {
       bedrooms: 1,
     })
 
-    Property.save()
-      .then((property) => console.log(property))
-      .catch(error => console.log(error))
-
-    res.json(Property);
-
+    const property = await Property.save();
+    res.status(200).json(property);
   } catch (error) {
-    console.log(error);
+    res.status(400).send({ message: 'error', error });
   }
 }
 
 // POST request to delete property
-exports.property_delete_post = function (req, res) { 
+exports.propertyDelete = async (req, res) => { 
   try {
     //recupero el id pasado por param
     const idProperty = req.params.id;
 
-    propertyModel.findOneAndRemove({ _id: idProperty }, function (err) {
-      res.json('ok');
-    });
-
+    const property = await propertyModel.findOneAndRemove({ _id: idProperty });
+    res.status(200).json(property);
   } catch (error) {
-    console.log(error);
+    res.status(400).send({ message: 'error', error });
   }
 }
 
 // POST request to update property
-exports.property_update_post = function (req, res) {
+exports.propertyUpdate = async (req, res) => {
   // let propertyUpdated =
   // {
   //   antiquity: req.body.antiquity,
@@ -100,18 +85,14 @@ exports.property_update_post = function (req, res) {
   console.log('req', req.params);
   console.log('req body', req.body);
   try {
-    propertyModel.findByIdAndUpdate(
+    const property = await propertyModel.findByIdAndUpdate(
       { _id: req.params.id },
       { $set: Object.assign(req.body) },
       { new: false },
-
-      (err, property) => {
-        if (err) return res.status(500).send(err);
-        return res.json(property); //retorna el viejo
-      }
     )
+    res.status(200).json(property);
   }
   catch (error) {
-    console.log(error);
+    res.status(400).send({ message: 'error', error });
   }
 }

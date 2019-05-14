@@ -1,14 +1,11 @@
 import express from 'express'; 
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import 'babel-polyfill';
 
 //Routes
 import indexRouter from './routes/index';
-
-import propertyRouter from './routes/property';
 import propertysRouter from './routes/propertys';
-
-import userRouter from './routes/user';
 import usersRouter from './routes/users';
 
 const app = express(); //traemos todo el framework express
@@ -25,9 +22,7 @@ app.listen(3010, () => { console.log('Escuchando el puerto 3010') });  //levanta
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', indexRouter);
-app.use('/user', userRouter);
 app.use('/users', usersRouter);
-app.use('/property', propertyRouter);
 app.use('/propertys', propertysRouter);
 
 
