@@ -102,7 +102,7 @@ exports.property_update_post = function (req, res) {
   try {
     propertyModel.findByIdAndUpdate(
       { _id: req.params.id },
-      { $set: propertyUpdated },
+      { $set: Object.assign(req.body) },
       { new: false },
 
       (err, property) => {

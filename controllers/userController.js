@@ -12,17 +12,15 @@ exports.user_list = function (req, res) {
 }
 
 //info de un usuario especifico
-exports.user_detail = function (req, res) {
-  try {
-    //recupero el id pasado por param
-    const idUser = req.params.id;
+exports.user_detail = async (req, res) => {
+  //recupero el id pasado por param
+  const idUser = req.params.id;
 
-    userModel.findById(idUser, function (err, item) {
-      res.status(200).send({ data: item })
-      res.status(400).send({ message: 'error' });
-    });
-  } catch (error) {
-    console.log(error);
+  try {
+    const user = await userModel.findById(idUser);
+    res.status(200).send({ data: user })
+  } catch(error) {
+    res.status(400).send({ message: 'error', error });
   }
 }
 
