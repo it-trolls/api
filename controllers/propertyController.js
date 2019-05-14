@@ -79,22 +79,22 @@ exports.property_delete_post = function (req, res) {
 
 // POST request to update property
 exports.property_update_post = function (req, res) {
-  let propertyUpdated =
-  {
-    antiquity: req.body.antiquity,
-    description: req.body.description,
-    provision: req.body.provision,
-    state: req.body.state,
-    garage: req.body.garage,
-    location: req.body.location,
-    address: req.body.address,
-    garden: req.body.garden,
-    price: req.body.price,
-    coveredArea: req.body.coveredArea,
-    neighborhood: req.body.neighborhood,
-    bathrooms: req.body.bathrooms,
-    bedrooms: req.body.bedrooms,
-  };
+  // let propertyUpdated =
+  // {
+  //   antiquity: req.body.antiquity,
+  //   description: req.body.description,
+  //   provision: req.body.provision,
+  //   state: req.body.state,
+  //   garage: req.body.garage,
+  //   location: req.body.location,
+  //   address: req.body.address,
+  //   garden: req.body.garden,
+  //   price: req.body.price,
+  //   coveredArea: req.body.coveredArea,
+  //   neighborhood: req.body.neighborhood,
+  //   bathrooms: req.body.bathrooms,
+  //   bedrooms: req.body.bedrooms,
+  // };
 
   console.clear();
   console.log('req', req.params);

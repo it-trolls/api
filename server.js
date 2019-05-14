@@ -21,6 +21,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.listen(3010, () => { console.log('Escuchando el puerto 3010') });  //levantamos el sv, abrimos el puerto 3010 y escuchamos cualquier http
 
+// app.use(express.json()) reemplaza lo de abajo, sacar bodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', indexRouter);
@@ -46,6 +47,7 @@ app.use('/propertys', propertysRouter);
 //   res.render('error');
 // });
 
+//REEMPLAZAR POR CORS
 app.use((req, res, next) => {
 
   // Dominio que tengan acceso (ej. 'http://example.com')

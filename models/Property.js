@@ -1,6 +1,17 @@
 import mongoose from 'mongoose';
 var Schema = mongoose.Schema;
 
+// una inmo puede tener varios usuarios y un usuario puede estar relacionado en varias inmobiliarias
+// web, razon social, cuit, direccion
+
+// coleccion "Contraro/Alquiler"
+
+// ver .populate
+
+
+// registrarse, inmo carga una propiedad, un usuario puede ver la propiedad.
+
+
 var property = new Schema({
   antiquity: {
     type: Number,
@@ -40,14 +51,17 @@ var property = new Schema({
   },
   bathrooms: {
     type: Number,
-    required: true
+    required: true,
+    default:0
   },
   bedrooms: {
     type: Number,
-    required: true
+    required: true,
+    default:0,
   },
   state: { //vendido, alquilado
     type: String,
+    enum: ['VENDIDO','ALQUILADO'],
     required: false
   }, 
   garden: {
