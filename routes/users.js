@@ -11,10 +11,10 @@ router.post('/create', userController.userCreate); //controller.method
 // router.post('/create', (req, res) => res.json({ msg: "user create works" }));
 
 // POST request to delete user.
-router.post('/delete/:id', userController.userDelete);
+router.post('/:id/delete', userController.userDelete);
 
 // PUT request to update user.
-router.put('/update/:id', userController.userUpdate);
+router.put('/:id/update', userController.userUpdate);
 
 // GET request for all users.
 router.get('/', userController.userList);

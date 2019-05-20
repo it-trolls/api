@@ -11,10 +11,10 @@ router.post('/create', propertyController.propertyCreate); //controlller.method
 // router.post('/create', (req, res) => res.json({ msg: "property create works" }));
 
 // POST request to delete property.
-router.post('/delete/:id', propertyController.propertyDelete);
+router.post('/:id/delete', propertyController.propertyDelete);
 
 // PUT request to update property.
-router.put('/update/:id', propertyController.propertyUpdate);
+router.put('/:id/update', propertyController.propertyUpdate);
 
 // GET request for all propertys.
 router.get('/', propertyController.propertyList);
