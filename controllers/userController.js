@@ -1,4 +1,6 @@
 import userModel from '../models/User';
+import config from '../config';
+import jwt from 'jsonwebtoken';
 
 //info de todos los usuarios
 exports.userList = async (req, res) => {
@@ -26,12 +28,28 @@ exports.userDetail = async (req, res) => {
 //crear un usuario
 exports.userCreate = async (req, res) => {
   try {
-    const User = new userModel(req.body);
+    console.clear();
+    console.log('req body', req.body);
+    // var hashedPassword = bcrypt.hashSync(req.body.password, 8);
+
+    const User = new userModel({
+      username: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+      // password: hashedPassword
+    });
       
     const user = await User.save();
-    res.status(200).json(user);
+
+    // create a token
+    const token = jwt.sign({ id: user._id }, config.secret, {
+      expiresIn: 86400 // expires in 24 hours
+    });
+
+    res.status(200).send({ auth: true, token: token });
   } catch (error) {
     res.status(400).send({ message: 'error', error });
+    res.status(400).send({ message: 'error al registrar usuario', error });
   }
 }
 
