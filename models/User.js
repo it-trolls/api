@@ -47,10 +47,6 @@ var user = new Schema({
   delete_at: {
     type: Date
   },
-  token: {
-    type: String,
-    required: true,
-  },
 })
 
 //falta encriptar el password: md5, brcypt ?
