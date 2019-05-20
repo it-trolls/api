@@ -26,15 +26,8 @@ exports.userDetail = async (req, res) => {
 //crear un usuario
 exports.userCreate = async (req, res) => {
   try {
-    const User = new userModel(
-      {
-        username: 'testUser',
-        password: 'regnum',
-        name: 'gaston',
-        mail: 'regnum@gmail.com.ar',
-        token: 'String'
-      }
-    );
+    const User = new userModel(req.body);
+      
     const user = await User.save();
     res.status(200).json(user);
   } catch (error) {
@@ -58,22 +51,13 @@ exports.userDelete = async (req, res) =>{
 //actualizar un usuario
 exports.userUpdate = async (req, res) => {
 
-  let userUpdated = 
-    {
-      username: req.body.username,
-      password: req.body.password,
-      name: req.body.name,
-      mail: req.body.mail,
-      token: req.body.token
-    };
-
   console.clear();
   console.log('req',req.params); 
   console.log('req body',req.body); 
   try {
     const user = await userModel.findByIdAndUpdate(
       { _id: req.params.id },
-      { $set: userUpdated },
+      { $set: Object.assign(req.body) },
       { new: true },
     )
     res.status(200).json(user);
