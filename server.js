@@ -20,6 +20,8 @@ const verifyToken = (req, res) => {
     return res.status(400).send('Invalid Token');
   }
 }
+// const Auth = require('./routes/auth'); 
+import Auth from "./routes/auth";
 
 const app = express(); //traemos todo el framework express
 
@@ -36,7 +38,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/propertys',  propertysRouter);
+app.use('/propertys', propertysRouter);
+app.use('/auth',Auth);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
