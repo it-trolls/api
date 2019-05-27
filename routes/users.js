@@ -1,22 +1,22 @@
 import express from 'express';
 import userController from '../controllers/userController';
+import verifyToken from '../verifyToken';
 
 const router = express.Router();
 
 // GET request for one user.
-router.get('/:id', userController.userDetail);
+router.get('/:id', verifyToken, userController.userDetail);
 
 // POST request create user
-router.post('/create', userController.userCreate); //controller.method
-// router.post('/create', (req, res) => res.json({ msg: "user create works" }));
+router.post('/create', verifyToken, userController.userCreate);
 
 // POST request to delete user.
-router.post('/:id/delete', userController.userDelete);
+router.post('/:id/delete', verifyToken, userController.userDelete);
 
 // PUT request to update user.
-router.put('/:id/update', userController.userUpdate);
+router.put('/:id/update', verifyToken, userController.userUpdate);
 
 // GET request for all users.
-router.get('/', userController.userList);
+router.get('/', verifyToken, verifyToken, userController.userList);
 
 module.exports = router;

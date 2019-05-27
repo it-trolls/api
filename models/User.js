@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var user = new Schema({
   username: {
     type: String,
-    required: true,
+    // required: true,
     // unique: true
   },
   password: { 
@@ -19,7 +19,7 @@ var user = new Schema({
     type: String,
     required: false,
   },
-  mail: { 
+  email: { 
     type: String,
     required: true,
     // unique: true //con esto salta: (node:15680) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
