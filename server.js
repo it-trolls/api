@@ -35,8 +35,8 @@ app.listen(3010, () => { console.log('Escuchando el puerto 3010') });  //levanta
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', indexRouter);
-app.use('/users', verifyToken, usersRouter);
-app.use('/propertys', verifyToken,  propertysRouter);
+app.use('/users', usersRouter);
+app.use('/propertys',  propertysRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
