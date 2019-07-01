@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 
 module.exports = async (req, res, next) => {
   const token = req.headers['x-access-token'];
+  // var token = new Cookies(req, res).get('access_token'); //error
   if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
   try {
     await jwt.verify(token, config.secret);

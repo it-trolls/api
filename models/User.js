@@ -1,12 +1,13 @@
 import mongoose from 'mongoose';
-var Schema = mongoose.Schema;
 import bcrypt from "bcryptjs";
+import uniqueValidator from 'mongoose-unique-validator';
+var Schema = mongoose.Schema;
 
 var user = new Schema({
   username: {
     type: String,
-    // required: true,
-    // unique: true
+    //required: true,
+    //unique: true
   },
   password: { 
     type: String,
@@ -23,7 +24,7 @@ var user = new Schema({
   email: { 
     type: String,
     required: true,
-    // unique: true //con esto salta: (node:15680) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+    unique: true //con esto salta: (node:15680) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
   },
   dni: {
     type: String,
@@ -50,6 +51,7 @@ var user = new Schema({
   },
 })
 
+user.plugin(uniqueValidator);
  
 //password hash process 
 

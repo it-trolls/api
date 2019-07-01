@@ -1,6 +1,4 @@
 import userModel from '../models/User';
-import config from '../config';
-import jwt from 'jsonwebtoken';
 
 //info de todos los usuarios
 exports.userList = async (req, res) => {
@@ -32,22 +30,15 @@ exports.userCreate = async (req, res) => {
     console.log('req body', req.body);
 
     const User = new userModel({
-      username: req.body.name,
       email: req.body.email,
       password: req.body.password,
     });
       
     const user = await User.save();
-
-    // create a token
-    const token = jwt.sign({ id: user._id }, config.secret, {
-      expiresIn: 86400 // expires in 24 hours
-    });
-
-    res.status(200).send({ auth: true, token: token });
+    
+    res.status(200).json(user);
   } catch (error) {
-    res.status(400).send({ message: 'error', error });
-    res.status(400).send({ message: 'error al registrar usuario', error });
+    res.status(400).send({ message: 'error al crear usuario', error });
   }
 }
 

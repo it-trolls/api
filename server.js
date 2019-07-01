@@ -7,6 +7,7 @@ import 'babel-polyfill';
 import indexRouter from './routes/index';
 import propertysRouter from './routes/propertys';
 import usersRouter from './routes/users';
+import authRouter from './routes/auth';
 
 import config from './config';
 import jwt from 'jsonwebtoken';
@@ -39,7 +40,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/propertys', propertysRouter);
-app.use('/auth',Auth);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
