@@ -30,13 +30,11 @@ exports.userCreate = async (req, res) => {
   try {
     console.clear();
     console.log('req body', req.body);
-    // var hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
     const User = new userModel({
       username: req.body.name,
       email: req.body.email,
       password: req.body.password,
-      // password: hashedPassword
     });
       
     const user = await User.save();
