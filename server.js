@@ -5,8 +5,8 @@ import 'babel-polyfill';
 
 //Routes
 import indexRouter from './routes/index';
-import propertysRouter from './routes/propertys';
 import usersRouter from './routes/users';
+import propertysRouter from './routes/propertys';
 import authRouter from './routes/auth';
 
 const app = express(); //traemos todo el framework express

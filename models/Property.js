@@ -61,7 +61,7 @@ var property = new Schema({
   },
   state: { //vendido, alquilado
     type: String,
-    enum: ['VENDIDO','ALQUILADO'],
+    enum: ['vendido','alquilado'],
     required: false
   }, 
   garden: {
@@ -84,18 +84,10 @@ var property = new Schema({
       },
     }
   ],
-  type: [
-    {
-      house: {
-        type: Boolean,
-        required: false
-      },
-      department: {
-        type: Boolean,
-        required: false
-      },
-    }
-  ],
+  type: {
+    type: String,
+    enum: ['house', 'department'],
+  },
   services: [
     {
       water: {
