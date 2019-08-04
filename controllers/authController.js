@@ -52,8 +52,7 @@ exports.register = async (req, res) => {
 
         const user = await User.save();
 
-        // create a token
-        res.status(200).json(user);
+        res.status(200).send('Se registro exitosamente.');
     } catch (error) {
         res.status(400).send({ message: 'error al registrar usuario', error });
     }
