@@ -6,6 +6,7 @@ import 'babel-polyfill';
 //Routes
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
+import realStateRouter from './routes/realStates';
 import propertysRouter from './routes/propertys';
 import authRouter from './routes/auth';
 
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/propertys', propertysRouter);
+app.use('/realstates', realStateRouter);
 app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler

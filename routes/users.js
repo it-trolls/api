@@ -6,7 +6,7 @@ import userModel from '../models/User';
 //probando dummy
 // import dummy from 'mongoose-dummy';
 const dummy = require('mongoose-dummy');
-const ignoredFields = ['_id', '__v', 'created_at', 'updated_at', 'delete_at'];
+const ignoredFields = ['__v', 'created_at', 'updated_at', 'delete_at'];
 
 const router = express.Router();
 

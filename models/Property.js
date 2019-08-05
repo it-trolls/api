@@ -1,18 +1,12 @@
 import mongoose from 'mongoose';
 var Schema = mongoose.Schema;
 
-// una inmo puede tener varios usuarios y un usuario puede estar relacionado en varias inmobiliarias
-// web, razon social, cuit, direccion
-
-// coleccion "Contraro/Alquiler"
-
-// ver .populate
-
-
-// registrarse, inmo carga una propiedad, un usuario puede ver la propiedad.
-
-
-var property = new Schema({
+var propertySchema = new Schema({
+  realState: { 
+    type: Schema.Types.ObjectId, 
+    ref: 'RealState', 
+    required: true 
+  },
   antiquity: {
     type: Number,
     required: false,
@@ -118,12 +112,20 @@ var property = new Schema({
         required: false
       } 
     }
-  ]
+  ],
+  created_at: {
+    type: Date,
+    dafault: Date.now()
+  },
+  updated_at: {
+    type: Date,
+    dafault: Date.now()
+  },
+  delete_at: {
+    type: Date
+  },
 });
 
-
-
-
-const propertyModel = mongoose.model('property', property);
+const propertyModel = mongoose.model('Property', propertySchema);
 
 module.exports = propertyModel;

@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import uniqueValidator from 'mongoose-unique-validator';
 var Schema = mongoose.Schema;
 
-var user = new Schema({
+var userSchema = new Schema({
   username: {
     type: String,
     //required: true,
@@ -51,7 +51,7 @@ var user = new Schema({
   },
 })
 
-user.plugin(uniqueValidator);
+userSchema.plugin(uniqueValidator);
  
 //password hash process 
 
@@ -69,7 +69,7 @@ user.plugin(uniqueValidator);
 //   }).catch(error => next(error));
 // });
 
-user.pre('save', async function(next){
+userSchema.pre('save', async function(next){
   try{
     //salt is random data that is used as an additional input that hash password
     let salt = await bcrypt.genSalt(10);
@@ -88,6 +88,6 @@ user.pre('save', async function(next){
 
 
 
-const userModel = mongoose.model('User', user);
+const userModel = mongoose.model('User', userSchema);
 
 module.exports = userModel;
