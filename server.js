@@ -44,4 +44,11 @@ app.use(function (err, req, res, next) {
 
 
 
+const Auth = require('./routes/auth');
+
+app.use('/auth',Auth);
+
+
+
+
 module.exports = app;

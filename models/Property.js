@@ -11,6 +11,8 @@ var Schema = mongoose.Schema;
 
 // registrarse, inmo carga una propiedad, un usuario puede ver la propiedad.
 
+//falta created_at , updated_at, deleted_at
+
 
 var property = new Schema({
   antiquity: {
