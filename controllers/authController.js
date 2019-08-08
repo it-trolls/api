@@ -10,7 +10,11 @@ exports.login = async (req, res) => {
 
     userModel.findOne({ email })
     .then(user =>{
-        if (!user) return res.status(404).send({message: 'User doesn`t exist '})
+        if (!user) return res.status(404).send({ 
+            auth: false, 
+            error: 'User doesn`t exist'
+        });
+
         bcrypt.compare(password,user.password)
             .then(match => {
 
@@ -19,24 +23,32 @@ exports.login = async (req, res) => {
                     const token = jwt.sign({ id: user._id }, config.secret, {
                         expiresIn: 86400 // expires in 24 hours
                     });
-    
-                    //guardar token en
-                    res.cookie('access_token', token);
-                    // new Cookies(req, res).set('access_token', token, {
-                    //     httpOnly: true,
-                    //     secure: true      // for your production environment
-                    // });
 
-                    return res.status(200).send({ auth: true, token: token });
+                    return res.status(200).send({ 
+                        auth: true, 
+                        token: { 
+                            value: token, 
+                            expiresIn: 86400
+                        }  
+                    });
                 };
 
-                return res.status(200).send({message : 'Incorrect password '})
+                return res.status(200).send({ 
+                    auth: false, 
+                    error : 'Incorrect password'
+                });
 
             }).catch(error => {
-                res.status(500).send({error});
-            })
+                res.status(500).send({ 
+                    auth: false, 
+                    error: error
+            });
+        })
         
-    }).catch(error => res.status(500).send({error}));
+    }).catch(error => res.status(500).send({ 
+        auth: false, 
+        error: error
+    }));
 }
 
 //crear un usuario
@@ -52,8 +64,14 @@ exports.register = async (req, res) => {
 
         const user = await User.save();
 
-        res.status(200).send('Se registro exitosamente.');
+        return res.status(200).send({
+            register: true,
+            message: 'successfully registered'
+        });
     } catch (error) {
-        res.status(400).send({ message: 'error al registrar usuario', error });
+        res.status(400).send({ 
+            register: false, 
+            error: error 
+        });
     }
 }

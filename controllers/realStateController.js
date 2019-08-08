@@ -9,8 +9,12 @@ exports.realStateDetail = async (req, res) => {
 
     const realState = await realStateModel.findById(idrealState);
     res.status(200).json(realState);
+
   } catch (error) {
-    res.status(400).send({ message: 'error', error });
+    res.status(400).send({ 
+      success: false, 
+      error: error 
+    });
   }
 }
 
@@ -20,7 +24,10 @@ exports.realStateList = async (req, res) => {
     const realStates = await realStateModel.find({});
     res.status(200).json(realStates);
   } catch (error) {
-    res.status(400).send({ message: 'error', error });
+    res.status(400).send({ 
+      success: false, 
+      error: error 
+    });
   }
 }
 
@@ -30,10 +37,14 @@ exports.realStatePropertysList = async (req, res) => {
     //recupero el id pasado por param
     const idrealState = req.params.id;
 
-    const propertys = await propertyModel.find({realState: idrealState}).populate('propertys');
+    const propertys = await realStateModel.find({ _id: idrealState }).populate('propertys');
+
     res.status(200).json(propertys);
   } catch (error) {
-    res.status(400).send({ message: 'error', error });
+    res.status(400).send({ 
+      success: false, 
+      error: error 
+    });
   }
 }
 
@@ -47,7 +58,10 @@ exports.realStateCreate = async (req, res) => {
     const realState = await RealState.save();
     res.status(200).json(realState);
   } catch (error) {
-    res.status(400).send({ message: 'error', error });
+    res.status(400).send({ 
+      create: false, 
+      error: error 
+    });
   }
 }
 
@@ -59,8 +73,12 @@ exports.realStateDelete = async (req, res) => {
 
     const realState = await realStateModel.findOneAndRemove({ _id: idrealState });
     res.status(200).json(realState);
+
   } catch (error) {
-    res.status(400).send({ message: 'error', error });
+    res.status(400).send({ 
+      delete: false, 
+      error: error 
+    });
   }
 }
 
@@ -76,9 +94,13 @@ exports.realStateUpdate = async (req, res) => {
       { $set: Object.assign(req.body) },
       { new: true },
     )
+
     res.status(200).json(realState);
   }
   catch (error) {
-    res.status(400).send({ message: 'error', error });
+    res.status(400).send({ 
+      update: true, 
+      error: error 
+    });
   }
 }

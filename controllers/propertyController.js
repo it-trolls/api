@@ -1,4 +1,5 @@
 import propertyModel from '../models/Property';
+import realStateModel from '../models/RealState';
 
 // GET request for one property
 exports.propertyDetail = async (req, res) => {
@@ -29,9 +30,24 @@ exports.propertyCreate = async (req, res) => {
     const Property = new propertyModel(req.body);
 
     const property = await Property.save();
-    res.status(200).json(property);
+
+    const realState = await realStateModel.findOne({ _id: req.body.realState });
+
+    realState.propertys.push(property._id);
+    realState.save();
+
+    // res.status(200).send({
+    //   create: true,
+    //   value: json(property)
+    // });
+    
+    res.status(200).send({property})
+
   } catch (error) {
-    res.status(400).send({ message: 'error', error });
+    res.status(400).send({ 
+      create: false, 
+      error: error 
+    });
   }
 }
 
