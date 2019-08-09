@@ -5,8 +5,10 @@ import 'babel-polyfill';
 
 //Routes
 import indexRouter from './routes/index';
-import propertysRouter from './routes/propertys';
 import usersRouter from './routes/users';
+import realStateRouter from './routes/realStates';
+import propertysRouter from './routes/propertys';
+import authRouter from './routes/auth';
 
 const app = express(); //traemos todo el framework express
 
@@ -24,7 +26,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/propertys', propertysRouter);
-
+app.use('/realstates', realStateRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -41,14 +44,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-
-
-const Auth = require('./routes/auth');
-
-app.use('/auth',Auth);
-
-
-
 
 module.exports = app;

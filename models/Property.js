@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 var Schema = mongoose.Schema;
 
+
 // una inmo puede tener varios usuarios y un usuario puede estar relacionado en varias inmobiliarias
 // web, razon social, cuit, direccion
 
@@ -14,7 +15,12 @@ var Schema = mongoose.Schema;
 //falta created_at , updated_at, deleted_at
 
 
-var property = new Schema({
+var propertySchema = new Schema({
+  realState: { 
+    type: Schema.Types.ObjectId, 
+    ref: 'RealState', 
+    required: true 
+  },
   antiquity: {
     type: Number,
     required: false,
@@ -63,7 +69,7 @@ var property = new Schema({
   },
   state: { //vendido, alquilado
     type: String,
-    enum: ['VENDIDO','ALQUILADO'],
+    enum: ['vendido','alquilado'],
     required: false
   }, 
   garden: {
@@ -86,18 +92,10 @@ var property = new Schema({
       },
     }
   ],
-  type: [
-    {
-      house: {
-        type: Boolean,
-        required: false
-      },
-      department: {
-        type: Boolean,
-        required: false
-      },
-    }
-  ],
+  type: {
+    type: String,
+    enum: ['house', 'department'],
+  },
   services: [
     {
       water: {
@@ -128,12 +126,20 @@ var property = new Schema({
         required: false
       } 
     }
-  ]
+  ],
+  created_at: {
+    type: Date,
+    dafault: Date.now()
+  },
+  updated_at: {
+    type: Date,
+    dafault: Date.now()
+  },
+  delete_at: {
+    type: Date
+  },
 });
 
-
-
-
-const propertyModel = mongoose.model('property', property);
+const propertyModel = mongoose.model('Property', propertySchema);
 
 module.exports = propertyModel;

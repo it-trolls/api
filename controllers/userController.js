@@ -26,12 +26,19 @@ exports.userDetail = async (req, res) => {
 //crear un usuario
 exports.userCreate = async (req, res) => {
   try {
-    const User = new userModel(req.body);
+    console.clear();
+    console.log('req body', req.body);
+
+    const User = new userModel({
+      email: req.body.email,
+      password: req.body.password,
+    });
       
     const user = await User.save();
+    
     res.status(200).json(user);
   } catch (error) {
-    res.status(400).send({ message: 'error', error });
+    res.status(400).send({ message: 'error al crear usuario', error });
   }
 }
 

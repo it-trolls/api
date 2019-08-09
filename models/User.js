@@ -1,12 +1,13 @@
 import mongoose from 'mongoose';
+import bcrypt from "bcryptjs";
+import uniqueValidator from 'mongoose-unique-validator';
 var Schema = mongoose.Schema;
-const bcrypt = require('bcryptjs');
 
-var user = new Schema({
+var userSchema = new Schema({
   username: {
     type: String,
-    required: true,
-    unique: true
+    //required: true,
+    //unique: true
   },
   password: { 
     type: String,
@@ -20,10 +21,10 @@ var user = new Schema({
     type: String,
     required: false,
   },
-  mail: { 
+  email: { 
     type: String,
     required: true,
-    // unique: true //con esto salta: (node:15680) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+    unique: true //con esto salta: (node:15680) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
   },
   dni: {
     type: String,
@@ -50,6 +51,7 @@ var user = new Schema({
   },
 })
 
+userSchema.plugin(uniqueValidator);
  
 //password hash process 
 
@@ -67,7 +69,7 @@ var user = new Schema({
 //   }).catch(error => next(error));
 // });
 
-user.pre('save', async function(next){
+userSchema.pre('save', async function(next){
   try{
     //salt is random data that is used as an additional input that hash password
     let salt = await bcrypt.genSalt(10);
@@ -86,6 +88,6 @@ user.pre('save', async function(next){
 
 
 
-const userModel = mongoose.model('User', user);
+const userModel = mongoose.model('User', userSchema);
 
 module.exports = userModel;
