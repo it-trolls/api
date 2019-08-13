@@ -10,7 +10,10 @@ exports.propertyDetail = async (req, res) => {
     const property = await propertyModel.findById(idProperty);
     res.status(200).json(property);
   } catch (error) {
-    res.status(400).send({ message: 'error', error });
+    res.status(400).send({ 
+      success: false, 
+      error: error 
+    });
   }
 }
 
@@ -20,7 +23,10 @@ exports.propertyList = async (req, res) => {
     const propertys = await propertyModel.find({});
     res.status(200).json(propertys);
   } catch (error) {
-    res.status(400).send({ message: 'error', error });
+    res.status(400).send({
+      success: false,
+      error: error
+    });
   }
 }
 
@@ -58,9 +64,20 @@ exports.propertyDelete = async (req, res) => {
     const idProperty = req.params.id;
 
     const property = await propertyModel.findOneAndRemove({ _id: idProperty });
-    res.status(200).json(property);
+
+    if (property == null) 
+      return res.status(200).send({
+        delete: false,
+        error: 'this property does not exist.'
+      });
+
+    return res.status(200).json(property);
+
   } catch (error) {
-    res.status(400).send({ message: 'error', error });
+    res.status(400).send({ 
+      delete: false, 
+      error: error 
+    });
   }
 }
 
@@ -79,6 +96,9 @@ exports.propertyUpdate = async (req, res) => {
     res.status(200).json(property);
   }
   catch (error) {
-    res.status(400).send({ message: 'error', error });
+    res.status(400).send({
+      update: false,
+      error: error
+    });
   }
 }
