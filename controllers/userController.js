@@ -19,8 +19,13 @@ exports.userDetail = async (req, res) => {
     const user = await userModel.findById(idUser);
     res.status(200).json(user);
   } catch(error) {
-    res.status(400).send({ message: 'error', error });
+    res.status(400).send({ 
+      sucess: false,
+      error : error 
+    });
   }
+
+
 }
 
 //crear un usuario
