@@ -1,4 +1,5 @@
-import express from 'express'; 
+import express from 'express';
+import cors from 'cors'; 
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import 'babel-polyfill';
@@ -11,6 +12,8 @@ import propertysRouter from './routes/propertys';
 import authRouter from './routes/auth';
 
 const app = express(); //traemos todo el framework express
+
+app.use(cors()); //Enable All CORS Requests
 
 //conexion con mongodb
 var mongoDB = 'mongodb://localhost:27017/inmo';
