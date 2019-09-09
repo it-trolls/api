@@ -2,8 +2,20 @@ import userModel from '../models/User';
 import bcrypt from "bcryptjs";
 import config from '../config';
 import jwt from 'jsonwebtoken';
+import User from '../models/User';
+const {registerValidation,loginValidation} = require ('../validation');
 
 exports.login = async (req, res) => {
+
+    // use joi to validate
+    const {error} = loginValidation(req.body);
+    console.log(error);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    // confirm if email already exist
+    const user = await User.findOne({email:req.body.email});
+    if (!user) return res.status(400).send('Email is not exist');
+
 
     let email = req.body.email;
     let password=  req.body.password;
@@ -53,6 +65,17 @@ exports.login = async (req, res) => {
 
 //crear un usuario
 exports.register = async (req, res) => {
+
+    // use joi to validate
+    const {error} = registerValidation(req.body);
+    console.log(error);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    // confirm if email already exist
+    const emailExist = await User.findOne({email:req.body.email});
+    if (emailExist) return res.status(400).send('Email already exist');
+
+
     try {
         // console.clear();
         console.log('req body', req.body);

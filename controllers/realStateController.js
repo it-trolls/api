@@ -1,5 +1,6 @@
 import realStateModel from '../models/RealState';
 import propertyModel from '../models/Property';
+import {realStateValidation} from '../validation';
 
 // GET request for one property
 exports.realStateDetail = async (req, res) => {
@@ -50,6 +51,12 @@ exports.realStatePropertysList = async (req, res) => {
 
 // POST request create property
 exports.realStateCreate = async (req, res) => { 
+
+  // use joi to validate
+  const {error} = realStateValidation(req.body);
+  console.log(error);
+  if (error) return res.status(400).send(error.details[0].message);
+
   try {
     const RealState = new realStateModel(req.body);
 
@@ -85,9 +92,10 @@ exports.realStateDelete = async (req, res) => {
 // POST request to update property
 exports.realStateUpdate = async (req, res) => {
 
-  console.clear();
-  console.log('req', req.params);
-  console.log('req body', req.body);
+  const {error} = realStateValidation(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+
   try {
     const realState = await realStateModel.findByIdAndUpdate(
       { _id: req.params.id },

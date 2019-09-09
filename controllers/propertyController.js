@@ -1,5 +1,6 @@
 import propertyModel from '../models/Property';
 import realStateModel from '../models/RealState';
+import {propertyValidation} from '../validation';
 
 // GET request for one property
 exports.propertyDetail = async (req, res) => {
@@ -32,11 +33,18 @@ exports.propertyList = async (req, res) => {
 
 // POST request create property
 exports.propertyCreate = async (req, res) => { 
+
+  const {error} = propertyValidation(req.body);
+  console.log('propertyController:', error);
+  if (error) return res.status(400).send(error.details[0].message);
+
+
   try {
     const Property = new propertyModel(req.body);
 
     const property = await Property.save();
 
+    // TODO : documentar esto (pd: confirmar si lo vincula a una inmo existente)
     const realState = await realStateModel.findOne({ _id: req.body.realState });
 
     realState.propertys.push(property._id);
