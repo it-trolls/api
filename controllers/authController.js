@@ -11,7 +11,7 @@ exports.login = async (req, res) => {
     userModel.findOne({ email })
     .then(user =>{
         if (!user) return res.status(404).send({ 
-            auth: false, 
+            success: false, 
             error: 'User doesn`t exist'
         });
 
@@ -25,7 +25,7 @@ exports.login = async (req, res) => {
                     });
 
                     return res.status(200).send({ 
-                        auth: true, 
+                        success: true, 
                         token: { 
                             value: token, 
                             expiresIn: 86400
@@ -34,19 +34,19 @@ exports.login = async (req, res) => {
                 };
 
                 return res.status(200).send({ 
-                    auth: false, 
+                    success: false, 
                     error : 'Incorrect password'
                 });
 
             }).catch(error => {
                 res.status(500).send({ 
-                    auth: false, 
+                    success: false, 
                     error: error
             });
         })
         
     }).catch(error => res.status(500).send({ 
-        auth: false, 
+        success: false, 
         error: error
     }));
 }
@@ -65,12 +65,12 @@ exports.register = async (req, res) => {
         const user = await User.save();
 
         return res.status(200).send({
-            register: true,
+            success: true,
             message: 'successfully registered'
         });
     } catch (error) {
         res.status(400).send({ 
-            register: false, 
+            success: false, 
             error: error 
         });
     }

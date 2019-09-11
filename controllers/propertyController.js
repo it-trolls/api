@@ -8,7 +8,10 @@ exports.propertyDetail = async (req, res) => {
     const idProperty = req.params.id;
 
     const property = await propertyModel.findById(idProperty);
-    res.status(200).json(property);
+    res.status(200).send({
+      success: true,
+      value: property
+    });
   } catch (error) {
     res.status(400).send({ 
       success: false, 
@@ -21,7 +24,10 @@ exports.propertyDetail = async (req, res) => {
 exports.propertyList = async (req, res) => {
   try {
     const propertys = await propertyModel.find({});
-    res.status(200).json(propertys);
+    res.status(200).send({
+      success: true,
+      value: propertys
+    });
   } catch (error) {
     res.status(400).send({
       success: false,
@@ -41,17 +47,15 @@ exports.propertyCreate = async (req, res) => {
 
     realState.propertys.push(property._id);
     realState.save();
-
-    // res.status(200).send({
-    //   create: true,
-    //   value: json(property)
-    // });
     
-    res.status(200).send({property})
+    res.status(200).send({
+      success: true,
+      value: property
+    });
 
   } catch (error) {
     res.status(400).send({ 
-      create: false, 
+      success: false, 
       error: error 
     });
   }
@@ -67,15 +71,18 @@ exports.propertyDelete = async (req, res) => {
 
     if (property == null) 
       return res.status(200).send({
-        delete: false,
+        success: false,
         error: 'this property does not exist.'
       });
 
-    return res.status(200).json(property);
+    return res.status(200).send({
+      success: true,
+      value: property
+    });
 
   } catch (error) {
     res.status(400).send({ 
-      delete: false, 
+      success: false, 
       error: error 
     });
   }
@@ -93,11 +100,14 @@ exports.propertyUpdate = async (req, res) => {
       { $set: Object.assign(req.body) },
       { new: true },
     )
-    res.status(200).json(property);
+    res.status(200).send({
+      success: true,
+      value: property
+    });
   }
   catch (error) {
     res.status(400).send({
-      update: false,
+      success: false,
       error: error
     });
   }

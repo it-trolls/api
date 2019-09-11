@@ -4,9 +4,15 @@ import userModel from '../models/User';
 exports.userList = async (req, res) => {
   try {
     const users = await userModel.find({});
-    res.status(200).json(users);
+    res.status(200).send({
+      success: true,
+      value: users
+    });
   } catch (error) {
-    res.status(400).send({ message: 'error', error });
+    res.status(400).send({
+      success: false,
+      error: error
+    });
   }
 }
 
@@ -17,9 +23,15 @@ exports.userDetail = async (req, res) => {
 
   try {
     const user = await userModel.findById(idUser);
-    res.status(200).json(user);
+    res.status(200).send({
+      success: true,
+      value: user
+    });
   } catch(error) {
-    res.status(400).send({ message: 'error', error });
+    res.status(400).send({
+      success: false,
+      error: error
+    });
   }
 }
 
@@ -36,9 +48,15 @@ exports.userCreate = async (req, res) => {
       
     const user = await User.save();
     
-    res.status(200).json(user);
+    res.status(200).send({
+      success: true,
+      value: user
+    });
   } catch (error) {
-    res.status(400).send({ message: 'error al crear usuario', error });
+    res.status(400).send({
+      success: false,
+      error: error
+    });
   }
 }
 
@@ -49,9 +67,15 @@ exports.userDelete = async (req, res) =>{
     const idUser = req.params.id;
 
     const user = await userModel.findOneAndRemove({ _id: idUser });
-    res.status(200).json(user);
+    res.status(200).send({
+      success: true,
+      value: user
+    });
   } catch (error) {
-    res.status(400).send({ message: 'error', error });
+    res.status(400).send({
+      success: false,
+      error: error
+    });
   }
 }
 
@@ -67,10 +91,16 @@ exports.userUpdate = async (req, res) => {
       { $set: Object.assign(req.body) },
       { new: true },
     )
-    res.status(200).json(user);
+    res.status(200).send({
+      success: true,
+      value: user
+    });
   }
   catch(error) {
-    res.status(400).send({ message: 'error', error });
+    res.status(400).send({
+      success: false,
+      error: error
+    });
   }
   
 }

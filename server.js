@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors'; 
 import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
+// import bodyParser from 'body-parser';
 import 'babel-polyfill';
 
 //Routes
@@ -12,6 +12,7 @@ import propertysRouter from './routes/propertys';
 import authRouter from './routes/auth';
 
 const app = express(); //traemos todo el framework express
+app.use(express.json()); //reemplaza lo de abajo, sacar bodyParser
 
 app.use(cors()); //Enable All CORS Requests
 
@@ -23,8 +24,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.listen(3010, () => { console.log('Escuchando el puerto 3010') });  //levantamos el sv, abrimos el puerto 3010 y escuchamos cualquier http
 
-// app.use(express.json()) reemplaza lo de abajo, sacar bodyParser
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -45,7 +45,8 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  // res.render('error');
+  res.json({ error: err });
 });
 
 module.exports = app;

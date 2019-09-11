@@ -8,7 +8,10 @@ exports.realStateDetail = async (req, res) => {
     const idrealState = req.params.id;
 
     const realState = await realStateModel.findById(idrealState);
-    res.status(200).json(realState);
+    res.status(200).send({
+      success: true,
+      value: realState
+    });
 
   } catch (error) {
     res.status(400).send({ 
@@ -22,7 +25,10 @@ exports.realStateDetail = async (req, res) => {
 exports.realStateList = async (req, res) => {
   try {
     const realStates = await realStateModel.find({});
-    res.status(200).json(realStates);
+    res.status(200).send({
+      success: true,
+      value: realStates
+    });
   } catch (error) {
     res.status(400).send({ 
       success: false, 
@@ -39,7 +45,10 @@ exports.realStatePropertysList = async (req, res) => {
 
     const propertys = await realStateModel.find({ _id: idrealState }).populate('propertys');
 
-    res.status(200).json(propertys);
+    res.status(200).send({
+      success: true,
+      value: propertys
+    });
   } catch (error) {
     res.status(400).send({ 
       success: false, 
@@ -56,10 +65,13 @@ exports.realStateCreate = async (req, res) => {
     // _id: new mongoose.Types.ObjectId(),
 
     const realState = await RealState.save();
-    res.status(200).json(realState);
+    res.status(200).send({
+      success: true,
+      value: realState
+    });
   } catch (error) {
     res.status(400).send({ 
-      create: false, 
+      success: false, 
       error: error 
     });
   }
@@ -72,11 +84,14 @@ exports.realStateDelete = async (req, res) => {
     const idrealState = req.params.id;
 
     const realState = await realStateModel.findOneAndRemove({ _id: idrealState });
-    res.status(200).json(realState);
+    res.status(200).send({
+      success: true,
+      value: realState
+    });
 
   } catch (error) {
     res.status(400).send({ 
-      delete: false, 
+      success: false, 
       error: error 
     });
   }
@@ -95,11 +110,14 @@ exports.realStateUpdate = async (req, res) => {
       { new: true },
     )
 
-    res.status(200).json(realState);
+    res.status(200).send({
+      success: true,
+      value: realState
+    });
   }
   catch (error) {
     res.status(400).send({ 
-      update: true, 
+      success: false, 
       error: error 
     });
   }
