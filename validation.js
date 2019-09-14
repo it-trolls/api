@@ -45,8 +45,9 @@ module.exports.realStateValidation = realStateValidation ;
 
 const propertyValidation = (data) =>{
     const schema = {
-        address: joi.string().min(2).max(180).required(),
-        location: joi.string().min(2).max(180).required(),
+        address: joi.string().min(3).max(180).required(),
+        location: joi.string().min(4).max(180).required(),
+        realState: joi.string().required(),
     };
     return joi.validate(data,schema);
     
