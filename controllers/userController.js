@@ -1,5 +1,6 @@
 import userModel from '../models/User';
 
+
 //info de todos los usuarios
 exports.userList = async (req, res) => {
   try {
@@ -62,6 +63,8 @@ exports.userCreate = async (req, res) => {
 
 //borrar un usuario
 exports.userDelete = async (req, res) =>{
+
+  console.log('userdelete bp');
   try {
     //recupero el id pasado por param
     const idUser = req.params.id;
@@ -76,6 +79,8 @@ exports.userDelete = async (req, res) =>{
       success: false,
       error: error
     });
+
+    console.log(`/controllers/userControllers.js Error: ${error}`);
   }
 }
 
