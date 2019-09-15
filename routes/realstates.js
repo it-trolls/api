@@ -32,9 +32,9 @@ router.get('/:id/propertys', verifyToken, realStateController.realStatePropertys
 router.post('/create', verifyToken, realStateController.realStateCreate);
 
 // POST request to delete realState.
-router.post('/:id/delete', verifyToken, realStateController.realStateDelete);
+router.delete('/:id', verifyToken, realStateController.realStateDelete);
 
 // PUT request to update realState.
-router.put('/:id/update', verifyToken, realStateController.realStateUpdate);
+router.put('/:id', verifyToken, realStateController.realStateUpdate);
 
 module.exports = router;
