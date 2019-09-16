@@ -1,5 +1,5 @@
 import userModel from '../models/User';
-
+import {check,validationResult} from 'express-validator';
 
 //info de todos los usuarios
 exports.userList = async (req, res) => {
@@ -39,6 +39,16 @@ exports.userDetail = async (req, res) => {
 //crear un usuario
 exports.userCreate = async (req, res) => {
   try {
+
+    // console.log('llega',req)
+
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()){
+
+      return res.status(422).json({errors : errors.array()});
+    }
+
     console.clear();
     console.log('req body', req.body);
 
