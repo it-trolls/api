@@ -1,5 +1,5 @@
 import userModel from '../models/User';
-import {check,validationResult} from 'express-validator';
+import {validationResult} from 'express-validator';
 
 //info de todos los usuarios
 exports.userList = async (req, res) => {

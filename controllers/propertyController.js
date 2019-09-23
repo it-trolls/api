@@ -1,5 +1,7 @@
 import propertyModel from '../models/Property';
 import realStateModel from '../models/RealState';
+import {validationResult} from 'express-validator';
+
 
 // GET request for one property
 exports.propertyDetail = async (req, res) => {
@@ -36,8 +38,19 @@ exports.propertyList = async (req, res) => {
   }
 }
 
+
 // POST request create property
 exports.propertyCreate = async (req, res) => { 
+
+  console.log('contador de ejecución');
+  const errors = validationResult(req);
+
+  if(!errors.isEmpty()){
+
+    return res.status(422).json({errors : errors.array()});
+  }
+
+
   try {
     const Property = new propertyModel(req.body);
 

@@ -25,7 +25,6 @@ var propertySchema = new Schema({
   },
   location: {
     type: String,
-    required: true
   },
   address: {
     type: String,

@@ -29,7 +29,7 @@ router.get('/', verifyToken, realStateController.realStateList);
 router.get('/:id/propertys', verifyToken, realStateController.realStatePropertysList);
 
 // POST request create realState
-router.post('/create', verifyToken, realStateController.realStateCreate);
+router.post('/', verifyToken, realStateController.realStateCreate);
 
 // POST request to delete realState.
 router.delete('/:id', verifyToken, realStateController.realStateDelete);
