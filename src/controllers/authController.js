@@ -29,7 +29,8 @@ exports.login = async (req, res) => {
                         token: { 
                             value: token, 
                             expiresIn: 86400
-                        }  
+                        },
+                        id: user._id
                     });
                 };
 

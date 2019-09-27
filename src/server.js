@@ -26,7 +26,7 @@ mongoose.connect(mongoDB, {useNewUrlParser: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-app.listen(3013, () => { console.log('Escuchando el puerto 3010') });  //levantamos el sv, abrimos el puerto 3010 y escuchamos cualquier http
+app.listen(3010, () => { console.log('Escuchando el puerto 3010') });  //levantamos el sv, abrimos el puerto 3010 y escuchamos cualquier http
 
 // app.use(express.json()) reemplaza lo de abajo, sacar bodyParser
 //app.use(bodyParser.urlencoded({ extended: true }));

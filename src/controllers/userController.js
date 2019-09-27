@@ -3,7 +3,7 @@ import userModel from '../models/User';
 //info de todos los usuarios
 exports.userList = async (req, res) => {
   try {
-    const users = await userModel.find({});
+    const users = await userModel.find({}).select("-password");
     res.status(200).json(users);
   } catch (error) {
     res.status(400).send({ message: 'error', error });
@@ -16,7 +16,7 @@ exports.userDetail = async (req, res) => {
   const idUser = req.params.id;
 
   try {
-    const user = await userModel.findById(idUser);
+    const user = await userModel.findById(idUser).select("-password");
     res.status(200).json(user);
   } catch(error) {
     res.status(400).send({ message: 'error', error });
