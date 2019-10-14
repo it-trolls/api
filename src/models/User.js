@@ -15,11 +15,13 @@ var userSchema = new Schema({
   },
   permission: {
     type: String,
-    required: false
+    required: false,
+    default: ''
   },
   name: { 
     type: String,
     required: false,
+    default: ''
   },
   email: { 
     type: String,
@@ -29,12 +31,14 @@ var userSchema = new Schema({
   dni: {
     type: String,
     required: false,
+    default: ''
   },
   phone: [
     { 
       phoneNumber: {
         type: String,
         required: false,
+        default: ''
       }
     }
   ],
@@ -49,7 +53,7 @@ var userSchema = new Schema({
   delete_at: {
     type: Date
   },
-})
+});
 
 userSchema.plugin(uniqueValidator);
  
