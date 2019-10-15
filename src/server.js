@@ -11,7 +11,7 @@ dotenv.config();
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
 // import realStateRouter from './routes/realstates';
-import propertysRouter from './routes/propertys';
+import propertysRouter from './routes/properties';
 import authRouter from './routes/auth';
 
 const app = express(); //traemos todo el framework express
@@ -33,7 +33,7 @@ app.listen(3010, () => { console.log('Escuchando el puerto 3010') });  //levanta
 
 app.use('/api/v1/', indexRouter);
 app.use('/api/v1/users', usersRouter);
-app.use('/api/v1/propertys', propertysRouter);
+app.use('/api/v1/properties', propertysRouter);
 // app.use('/realstates', realStateRouter);
 app.use('/api/v1/auth', authRouter);
 

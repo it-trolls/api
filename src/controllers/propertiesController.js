@@ -1,4 +1,4 @@
-import propertyModel from '../models/Property';
+import propertyModel from '../models/Properties';
 import realStateModel from '../models/RealState';
 
 // GET request for one property

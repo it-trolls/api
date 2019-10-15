@@ -1,7 +1,7 @@
 import express from 'express';
-import propertyController from '../controllers/propertyController';
+import propertyController from '../controllers/propertiesController';
 import verifyToken from '../verifyToken';
-import propertyModel from '../models/Property';
+import propertyModel from '../models/Properties';
 
 //probando dummy
 import dummy from 'mongoose-dummy';
