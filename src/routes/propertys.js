@@ -26,12 +26,12 @@ router.get('/:id', verifyToken, propertyController.propertyDetail);
 router.get('/', verifyToken, propertyController.propertyList);
 
 // POST request create property
-router.post('/create', verifyToken, propertyController.propertyCreate); 
+router.post('/', verifyToken, propertyController.propertyCreate); 
 
 // POST request to delete property.
-router.post('/:id/delete', verifyToken, propertyController.propertyDelete);
+router.delete('/:id', verifyToken, propertyController.propertyDelete);
 
 // PUT request to update property.
-router.put('/:id/update', verifyToken, propertyController.propertyUpdate);
+router.put('/:id', verifyToken, propertyController.propertyUpdate);
 
 module.exports = router;

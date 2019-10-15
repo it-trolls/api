@@ -26,12 +26,12 @@ router.get('/:id', verifyToken, userController.userDetail);
 router.get('/', verifyToken, userController.userList);
 
 // POST request create user
-router.post('/create', verifyToken, userController.userCreate);
+router.post('/', verifyToken, userController.userCreate);
 
 // POST request to delete user.
-router.post('/:id/delete', verifyToken, userController.userDelete);
+router.delete('/:id/', verifyToken, userController.userDelete);
 
 // PUT request to update user.
-router.put('/:id/update', verifyToken, userController.userUpdate);
+router.put('/:id/', verifyToken, userController.userUpdate);
 
 module.exports = router;
