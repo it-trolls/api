@@ -2,6 +2,8 @@ import express from 'express';
 import userController from '../controllers/userController';
 import verifyToken from '../verifyToken';
 import userModel from '../models/User';
+import {check} from 'express-validator';
+
 
 //probando dummy
 // import dummy from 'mongoose-dummy';
@@ -26,7 +28,21 @@ router.get('/:id', verifyToken, userController.userDetail);
 router.get('/', verifyToken, userController.userList);
 
 // POST request create user
-router.post('/', verifyToken, userController.userCreate);
+
+const validationCreateUser = [
+  check('email','the email must be a valid email address').isEmail(),
+  check('email','the email field is required').isLength({min:1}),
+  check('password','your password have a minimum of 6 characters').isLength({min:6}),
+  check('email').custom(value => {
+    return userModel.findOne({email: value}).then(user => {
+      if (user) {
+        return Promise.reject('E-mail already in use');
+      }
+    });
+  }),
+]
+
+router.post('/', validationCreateUser, verifyToken, userController.userCreate);
 
 // POST request to delete user.
 router.delete('/:id/', verifyToken, userController.userDelete);

@@ -64,9 +64,9 @@ const propertySchema = new Schema({
   },
   state: { //vendido, alquilado
     type: String,
-    enum: ['sold','rented'],
+    enum: ['sold','rented','available','paused'],
     required: false,
-    default: ''
+    // default: ''
   }, 
   garden: {
     type: Boolean,

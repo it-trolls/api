@@ -1,5 +1,7 @@
 import propertyModel from '../models/Properties';
 // import realStateModel from '../models/RealState';
+import {validationResult} from 'express-validator';
+
 
 // GET request for one property
 exports.propertyDetail = async (req, res) => {
@@ -32,15 +34,24 @@ exports.propertyList = async (req, res) => {
 
 // POST request create property
 exports.propertyCreate = async (req, res) => { 
+
+
+  //validacion
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(422).json({errors : errors.array()});
+  }
+
+
   try {
     const Property = new propertyModel(req.body);
 
     const property = await Property.save();
 
-    const realState = await realStateModel.findOne({ _id: req.body.realState });
+    // const realState = await realStateModel.findOne({ _id: req.body.realState });
 
-    realState.propertys.push(property._id);
-    realState.save();
+    // realState.propertys.push(property._id);
+    // realState.save();
 
     // res.status(200).send({
     //   create: true,

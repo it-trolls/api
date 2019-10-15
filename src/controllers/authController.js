@@ -2,8 +2,17 @@ import userModel from '../models/User';
 import bcrypt from "bcryptjs";
 import config from '../config';
 import jwt from 'jsonwebtoken';
+import {validationResult} from 'express-validator';
+
 
 exports.login = async (req, res) => {
+
+    //validation
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(422).json({errors : errors.array()});
+    }
+
 
     let email = req.body.email;
     let password=  req.body.password;
@@ -54,6 +63,14 @@ exports.login = async (req, res) => {
 
 //crear un usuario
 exports.register = async (req, res) => {
+
+    //validation
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(422).json({errors : errors.array()});
+    }
+
+
     try {
         // console.clear();
         console.log('req body', req.body);
