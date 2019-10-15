@@ -1,5 +1,5 @@
 import propertyModel from '../models/Properties';
-import realStateModel from '../models/RealState';
+// import realStateModel from '../models/RealState';
 
 // GET request for one property
 exports.propertyDetail = async (req, res) => {
