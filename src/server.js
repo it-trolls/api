@@ -10,7 +10,7 @@ dotenv.config();
 //Routes
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
-import realStateRouter from './routes/realstates';
+// import realStateRouter from './routes/realstates';
 import propertysRouter from './routes/propertys';
 import authRouter from './routes/auth';
 
@@ -31,11 +31,11 @@ app.listen(3010, () => { console.log('Escuchando el puerto 3010') });  //levanta
 // app.use(express.json()) reemplaza lo de abajo, sacar bodyParser
 //app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/propertys', propertysRouter);
-app.use('/realstates', realStateRouter);
-app.use('/auth', authRouter);
+app.use('/api/v1/', indexRouter);
+app.use('/api/v1/users', usersRouter);
+app.use('/api/v1/propertys', propertysRouter);
+// app.use('/realstates', realStateRouter);
+app.use('/api/v1/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
