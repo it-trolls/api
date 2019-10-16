@@ -1,4 +1,4 @@
-import propertyModel from '../models/Properties';
+import propertyModel from '../models/Property';
 // import realStateModel from '../models/RealState';
 import {validationResult} from 'express-validator';
 

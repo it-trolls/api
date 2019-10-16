@@ -1,7 +1,7 @@
 import express from 'express';
 import propertyController from '../controllers/propertiesController';
 import verifyToken from '../verifyToken';
-import propertyModel from '../models/Properties';
+import propertyModel from '../models/Property';
 import {check} from 'express-validator';
 
 
