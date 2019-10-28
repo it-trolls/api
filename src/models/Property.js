@@ -12,6 +12,10 @@ const propertySchema = new Schema({
     required: false,
     default: 0
   },
+  propertyImage:{
+    type:String,
+    default:''
+  },
   description: {
     type: String,
     required: false,

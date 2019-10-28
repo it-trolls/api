@@ -3,6 +3,8 @@ import propertyModel from '../models/Property';
 import {validationResult} from 'express-validator';
 
 
+
+
 // GET request for one property
 exports.propertyDetail = async (req, res) => {
   try {
@@ -35,7 +37,7 @@ exports.propertyList = async (req, res) => {
 // POST request create property
 exports.propertyCreate = async (req, res) => { 
 
-
+  console.log(req.file);
   //validacion
   const errors = validationResult(req);
   if(!errors.isEmpty()){
@@ -45,6 +47,11 @@ exports.propertyCreate = async (req, res) => {
 
   try {
     const Property = new propertyModel(req.body);
+
+    console.log(req.file.path)
+    // Property.propertyImage = req.file.path
+
+    // Property.Object.propertyUpdate = req.file.path
 
     const property = await Property.save();
 
@@ -92,10 +99,9 @@ exports.propertyDelete = async (req, res) => {
   }
 }
 
-// POST request to update property
+// PUT request to update property
 exports.propertyUpdate = async (req, res) => {
 
-  console.clear();
   console.log('req', req.params);
   console.log('req body', req.body);
   try {
