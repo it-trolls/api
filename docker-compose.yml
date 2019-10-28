@@ -1,0 +1,28 @@
+version: '3'
+services:
+  3ro-api:
+    container_name: 3ro-api
+    build: .
+    ports:
+      - "3010:3010"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - 3ro
+  3ro-db:
+    container_name: 3ro-db
+    image: mongo
+    ports:
+      - "27017:27017"
+    #volumes:
+      #- ./data:/data/db
+    command: mongod
+    #environment:
+      #- MONGO_INITDB_ROOT_USERNAME=admin
+      #- MONGO_INITDB_ROOT_PASSWORD=<YOUR_PASSWORD>
+    networks:
+      - 3ro
+networks:
+  3ro:
+    driver: bridge
