@@ -12,6 +12,10 @@ const propertySchema = new Schema({
     required: false,
     default: 0
   },
+  propertyImage:{
+    type:String,
+    default:''
+  },
   description: {
     type: String,
     required: false,
@@ -147,6 +151,18 @@ const propertySchema = new Schema({
     type: Date
   },
 });
+
+
+// propertySchema.pre('save', async function(next){
+//   try{
+    
+//     this.propertyImage = req.body.file.path
+
+//   }catch(error){
+//     next(error);
+//   }
+
+// });
 
 const propertyModel = mongoose.model('Property', propertySchema);
 

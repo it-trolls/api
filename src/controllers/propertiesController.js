@@ -3,6 +3,8 @@ import propertyModel from '../models/Property';
 import {validationResult} from 'express-validator';
 
 
+
+
 // GET request for one property
 exports.propertyDetail = async (req, res) => {
   try {
@@ -25,7 +27,7 @@ exports.propertyList = async (req, res) => {
     const propertys = await propertyModel.find({});
     res.status(200).json(propertys);
   } catch (error) {
-    res.status(400).send({
+    res.status(400).send({ 
       success: false,
       error: error
     });
@@ -35,7 +37,6 @@ exports.propertyList = async (req, res) => {
 // POST request create property
 exports.propertyCreate = async (req, res) => { 
 
-
   //validacion
   const errors = validationResult(req);
   if(!errors.isEmpty()){
@@ -44,6 +45,8 @@ exports.propertyCreate = async (req, res) => {
 
 
   try {
+
+    req.body.propertyImage = req.file.path;
     const Property = new propertyModel(req.body);
 
     const property = await Property.save();
@@ -92,10 +95,9 @@ exports.propertyDelete = async (req, res) => {
   }
 }
 
-// POST request to update property
+// PUT request to update property
 exports.propertyUpdate = async (req, res) => {
 
-  console.clear();
   console.log('req', req.params);
   console.log('req body', req.body);
   try {

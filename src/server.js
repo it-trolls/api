@@ -18,7 +18,7 @@ const app = express(); //traemos todo el framework express
 app.use(express.json()); 
 
 app.use(cors()); //Enable All CORS Requests
-
+app.use('/uploads',express.static('uploads'))
 
 //conexion con mongodb
 var mongoDB = process.env.DB_HOST;

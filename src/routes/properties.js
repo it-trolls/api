@@ -3,10 +3,40 @@ import propertyController from '../controllers/propertiesController';
 import verifyToken from '../verifyToken';
 import propertyModel from '../models/Property';
 import {check} from 'express-validator';
+import multer from 'multer';
+
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+      cb(null, './uploads/');
+  },
+  filename: function(req, file, cb) {
+      const now = new Date().toISOString(); const date = now.replace(/:/g, '-'); cb(null, date + file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) =>{
+  if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+    cb(null, true);
+  }else{
+    cb(null, false); // can add error
+
+  }
+}
+
+// const upload = multer({dest:'uploads/'});
+const upload = multer({
+  storage: storage,
+  limits:{
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter : fileFilter
+});
 
 
 //probando dummy
 import dummy from 'mongoose-dummy';
+import { createBrotliCompress } from 'zlib';
 // const dummy = require('mongoose-dummy');
 const ignoredFields = ['__v', 'created_at', 'updated_at', 'delete_at'];
 
@@ -36,8 +66,8 @@ const validationCreateProperty = [
   check('location')
     .isLength({min:1}).withMessage('the location field is required')
     .isLength({max:250}).withMessage('location is too long'),
-    check('realState')
-    .isLength({min:1}).withMessage('realState ID field is required'),
+    // check('realState')
+    // .isLength({min:1}).withMessage('realState ID field is required'),
   check('antiquity')
     .optional().isInt().withMessage('aniquity value must be a number'),
   check('description')
@@ -73,7 +103,7 @@ const validationCreateProperty = [
   
 ]
 
-router.post('/', validationCreateProperty, verifyToken, propertyController.propertyCreate); 
+router.post('/', upload.single('propertyImage') , validationCreateProperty, verifyToken, propertyController.propertyCreate); 
 
 // POST request to delete property.
 router.delete('/:id', verifyToken, propertyController.propertyDelete);
