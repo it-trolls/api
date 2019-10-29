@@ -34,6 +34,11 @@ exports.propertyList = async (req, res) => {
   }
 }
 
+
+
+
+
+
 // POST request create property
 exports.propertyCreate = async (req, res) => { 
 
@@ -46,29 +51,39 @@ exports.propertyCreate = async (req, res) => {
 
   try {
 
-    req.body.propertyImage = req.file.path;
+    let arrayOfPaths = []
+    req.files.forEach(file => {
+      arrayOfPaths.push(file.path)
+    });
+
+    req.body.pictures = arrayOfPaths;
+    // req.body.propertyImage = req.file.path;
     const Property = new propertyModel(req.body);
 
     const property = await Property.save();
 
-    // const realState = await realStateModel.findOne({ _id: req.body.realState });
-
-    // realState.propertys.push(property._id);
-    // realState.save();
-
-    // res.status(200).send({
-    //   create: true,
-    //   value: json(property)
-    // });
-    
     res.status(200).send({property})
-
+    
   } catch (error) {
     res.status(400).send({ 
       create: false, 
       error: error 
     });
   }
+
+
+
+  // ex real state
+  // const realState = await realStateModel.findOne({ _id: req.body.realState });
+
+  // realState.propertys.push(property._id);
+  // realState.save();
+
+  // res.status(200).send({
+  //   create: true,
+  //   value: json(property)
+  // });
+  
 }
 
 // POST request to delete property

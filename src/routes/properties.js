@@ -103,12 +103,14 @@ const validationCreateProperty = [
   
 ]
 
-router.post('/', upload.single('propertyImage') , validationCreateProperty, verifyToken, propertyController.propertyCreate); 
+router.post('/', upload.array('pictures',12) , validationCreateProperty, verifyToken, propertyController.propertyCreate); 
 
 // POST request to delete property.
 router.delete('/:id', verifyToken, propertyController.propertyDelete);
 
 // PUT request to update property.
 router.put('/:id', verifyToken, propertyController.propertyUpdate);
+
+
 
 module.exports = router;

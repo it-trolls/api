@@ -132,12 +132,12 @@ const propertySchema = new Schema({
     }
   ],
   pictures: [
-    { url: {
-        type: String,
-        required: false,
-        default: ''
-      } 
-    }
+    // { url: {
+    //     type: String,
+    //     required: false,
+    //     default: ''
+    //   } 
+    // }
   ],
   created_at: {
     type: Date,
