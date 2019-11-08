@@ -35,10 +35,6 @@ exports.propertyList = async (req, res) => {
 }
 
 
-
-
-
-
 // POST request create property
 exports.propertyCreate = async (req, res) => { 
 
@@ -47,14 +43,17 @@ exports.propertyCreate = async (req, res) => {
   if(!errors.isEmpty()){
     return res.status(422).json({errors : errors.array()});
   }
-
-
   try {
-
+    
     let arrayOfPaths = []
-    req.files.forEach(file => {
-      arrayOfPaths.push(file.path)
-    });
+    console.log('hi',req.files)
+    if (req.files){
+      req.files.forEach(file => {
+        arrayOfPaths.push(file.path)
+      });
+    }
+    
+    console.log('hi',arrayOfPaths);
 
     req.body.pictures = arrayOfPaths;
     // req.body.propertyImage = req.file.path;
