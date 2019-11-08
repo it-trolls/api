@@ -25,7 +25,7 @@ var userSchema = new Schema({
   },
   email: { 
     type: String,
-    required: true,
+    required: false,
     unique: true //con esto salta: (node:15680) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
   },
   dni: {

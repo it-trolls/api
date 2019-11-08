@@ -13,11 +13,11 @@ exports.login = async (req, res) => {
         return res.status(422).json({errors : errors.array()});
     }
 
-
-    let email = req.body.email;
+    
+    let username = req.body.username;
     let password=  req.body.password;
 
-    userModel.findOne({ email })
+    userModel.findOne({ username })
     .then(user =>{
         if (!user) return res.status(404).send({ 
             auth: false, 
@@ -64,6 +64,8 @@ exports.login = async (req, res) => {
 //crear un usuario
 exports.register = async (req, res) => {
 
+
+    
     //validation
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -76,6 +78,7 @@ exports.register = async (req, res) => {
         console.log('req body', req.body);
 
         const User = new userModel({
+            username : req.body.username,
             email: req.body.email,
             password: req.body.password,
         });
