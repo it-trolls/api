@@ -46,19 +46,19 @@ exports.propertyCreate = async (req, res) => {
   try {
     
     let arrayOfPaths = []
-    console.log('hi',req.files)
+    // cycle array of images
     if (req.files){
       req.files.forEach(file => {
         arrayOfPaths.push(file.path)
       });
     }
     
-    console.log('hi',arrayOfPaths);
-
+    //push extra data to body.
     req.body.pictures = arrayOfPaths;
-    // req.body.propertyImage = req.file.path;
-    const Property = new propertyModel(req.body);
+    req.body.updated_at = Date.now();
+    req.body.created_at = Date.now();
 
+    const Property = new propertyModel(req.body);
     const property = await Property.save();
 
     res.status(200).send({property})
@@ -85,7 +85,7 @@ exports.propertyCreate = async (req, res) => {
   
 }
 
-// POST request to delete property
+// DELETE request to delete property
 exports.propertyDelete = async (req, res) => { 
   try {
     //recupero el id pasado por param
@@ -99,7 +99,13 @@ exports.propertyDelete = async (req, res) => {
         error: 'this property does not exist.'
       });
 
-    return res.status(200).json(property);
+
+    let response = {
+      delete:true,
+      message : 'this property has been successfully deleted',
+      value : {id : idProperty , title : `${property.title}`}
+    }
+    return res.status(200).json(response);
 
   } catch (error) {
     res.status(400).send({ 

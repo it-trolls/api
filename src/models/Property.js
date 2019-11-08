@@ -7,12 +7,7 @@ const propertySchema = new Schema({
   //   ref: 'RealState', 
   //   required: true 
   // },
-  antiquity: {
-    type: Number,
-    required: false,
-    default: 0
-  },
-  propertyImage:{
+  title:{
     type:String,
     default:''
   },
@@ -21,124 +16,76 @@ const propertySchema = new Schema({
     required: false,
     default: ''
   },
-  provision: { //disposicion: frente, pasillo
+  state: { //vendido, alquilado
     type: String,
+    enum: ['rental','sale','sold','rented','available','paused'],
     required: false,
-    default: ''
+    // default: ''
   }, 
-  garage: {
+  contract: { //vendido, alquilado
     type: String,
+    enum: ['rental', 'sale'],
     required: false,
+    // default: ''
+  }, 
+ 
+  type: {
+    type: String,
+    enum: ['house', 'department', 'office'],
     default: ''
   },
-  location: {
-    type: String,
-    required: true,
-    default: ''
+
+  price: {
+    type: Number,
+    required: false,
+    default: 0
   },
   address: {
     type: String,
     required: true,
     default: ''
   },
-  price: {
-    type: Number,
-    required: false,
-    default: 0
-  },
-  coveredArea: { //superficie cubierta
-    type: Number,
-    required: false,
-    default: 0
-  },
   neighborhood: { //barrio
     type: String,
     required: false,
     default: ''
   },
-  bathrooms: {
+  floor: { 
+    type: String,
+    required: false,
+    default: ''
+  },
+  coveredArea: { //superficie cubierta m^2
     type: Number,
-    required: true,
+    required: false,
+    default: 0
+  },
+  antiquity: {
+    type: Number,
+    required: false,
     default: 0
   },
   bedrooms: {
     type: Number,
-    required: true,
+    required: false, 
     default: 0,
   },
-  state: { //vendido, alquilado
-    type: String,
-    enum: ['sold','rented','available','paused'],
-    required: false,
-    // default: ''
-  }, 
-  garden: {
-    type: Boolean,
-    required: false,
-    default: false
-  },  
-  operation: 
-  [
-    {
-      rental: { //alquiler, 
-        type: Boolean,
-        required: false,
-        default: false
-      },
-      purchase: {
-        type: Boolean,
-        required: false,
-        default: false
-      },
-      sale: {
-        type: Boolean,
-        required: false,
-        default: false
-      }
-    }
-  ],
-  type: {
-    type: String,
-    enum: ['house', 'department'],
-    default: ''
+  bathrooms: {
+    type: Number,
+    required: false, 
+    default: 0
   },
-  services: [
-    {
-      water: {
-        type: Boolean,
-        required: false,
-        default: false
-      },
-      heating: { //calefacción
-        type: Boolean,
-        required: false,
-        default: false
-      },
-      sewer: { //cloacas
-        type: Boolean,
-        required: false,
-        default: false
-      },
-      electricity: {
-        type: Boolean,
-        required: false,
-        default: false
-      },
-      gas: {
-        type: Boolean,
-        required: false,
-        default: false
-      }
-    }
-  ],
-  pictures: [
-    // { url: {
-    //     type: String,
-    //     required: false,
-    //     default: ''
-    //   } 
-    // }
-  ],
+  kitchens: {
+    type: Number,
+    required: false, 
+    default: 0
+  },
+  courtyard: {
+    type: Boolean,
+    required: false, 
+    default: 0
+  },
+  pictures: [],
   created_at: {
     type: Date,
     dafault: Date.now()
@@ -150,6 +97,92 @@ const propertySchema = new Schema({
   delete_at: {
     type: Date
   },
+
+
+
+  // extra not in form
+  // city: { 
+  //   type: String,
+  //   required: false,
+  //   default: ''
+  // },
+
+  // propertyImage:{
+  //   type:String,
+  //   default:''
+  // },
+  // provision: { //disposicion: frente, pasillo
+  //   type: String,
+  //   required: false,
+  //   default: ''
+  // }, 
+  // garage: {
+  //   type: String,
+  //   required: false,
+  //   default: ''
+  // },
+  // location: {
+  //   type: String,
+  //   required: false,
+  //   default: ''
+  // },
+
+  // garden: {
+  //   type: Boolean,
+  //   required: false,
+  //   default: false
+  // },  
+  // operation: 
+  // [
+  //   {
+  //     rental: { //alquiler, 
+  //       type: Boolean,
+  //       required: false,
+  //       default: false
+  //     },
+  //     purchase: {
+  //       type: Boolean,
+  //       required: false,
+  //       default: false
+  //     },
+  //     sale: {
+  //       type: Boolean,
+  //       required: false,
+  //       default: false
+  //     }
+  //   }
+  // ],
+
+  // services: [
+  //   {
+  //     water: {
+  //       type: Boolean,
+  //       required: false,
+  //       default: false
+  //     },
+  //     heating: { //calefacción
+  //       type: Boolean,
+  //       required: false,
+  //       default: false
+  //     },
+  //     sewer: { //cloacas
+  //       type: Boolean,
+  //       required: false,
+  //       default: false
+  //     },
+  //     electricity: {
+  //       type: Boolean,
+  //       required: false,
+  //       default: false
+  //     },
+  //     gas: {
+  //       type: Boolean,
+  //       required: false,
+  //       default: false
+  //     }
+  //   }
+  // ],
+
 });
 
 
