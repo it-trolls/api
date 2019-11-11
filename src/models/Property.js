@@ -97,6 +97,10 @@ const propertySchema = new Schema({
   delete_at: {
     type: Date
   },
+  created_by: {
+    type: String,
+    default: ''
+  },
 
 
 
