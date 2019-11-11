@@ -23,8 +23,10 @@ exports.propertyDetail = async (req, res) => {
 
 // GET request for all propertys.
 exports.propertyList = async (req, res) => {
+
+  console.log(req.query);
   try {
-    const propertys = await propertyModel.find({});
+    const propertys = await propertyModel.find(req.query);
     res.status(200).json(propertys);
   } catch (error) {
     res.status(400).send({ 
