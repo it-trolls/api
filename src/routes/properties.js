@@ -52,10 +52,10 @@ router.get('/example', (req, res) => {
 });
 
 // GET request for one property.
-router.get('/:id', verifyToken, propertyController.propertyDetail);
+router.get('/:id', propertyController.propertyDetail);
 
 // GET request for all propertys.
-router.get('/', verifyToken, propertyController.propertyList);
+router.get('/', propertyController.propertyList);
 
 // POST request create property
 
