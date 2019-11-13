@@ -75,8 +75,6 @@ exports.register = async (req, res) => {
 
 
     try {
-        // console.clear();
-        console.log('req body', req.body);
 
         const User = new userModel({
             username : req.body.username,
@@ -85,11 +83,16 @@ exports.register = async (req, res) => {
         });
 
         const user = await User.save();
+        const token = jwt.sign({ id: user._id }, config.secret, {
+            expiresIn: 86400 // expires in 24 hours
+        });
 
         return res.status(200).send({
             register: true,
-            message: 'successfully registered'
+            message: 'successfully registered',
+            token: token
         });
+
     } catch (error) {
         res.status(400).send({ 
             register: false, 
