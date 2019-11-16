@@ -1,7 +1,9 @@
 import propertyModel from '../models/Property';
 // import realStateModel from '../models/RealState';
 import {validationResult} from 'express-validator';
+import config from '../config';
 
+import jwt from 'jsonwebtoken';
 
 
 
@@ -159,6 +161,7 @@ exports.propertyList = async (req, res) => {
 // POST request create property
 exports.propertyCreate = async (req, res) => { 
 
+  
   //validacion
   const errors = validationResult(req);
   if(!errors.isEmpty()){
@@ -174,10 +177,14 @@ exports.propertyCreate = async (req, res) => {
       });
     }
     
+    const usertoken = req.headers['x-access-token'];
+    const decoded = jwt.verify(usertoken, config.secret);
+    const userIdFromToken = decoded.id;
     //push extra data to body.
     req.body.pictures = arrayOfPaths;
     req.body.updated_at = Date.now();
     req.body.created_at = Date.now();
+    req.body.created_by = userIdFromToken;
 
     const Property = new propertyModel(req.body);
     const property = await Property.save();
