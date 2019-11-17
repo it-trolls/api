@@ -1,5 +1,6 @@
 import messageModel from '../models/Messages';
 import {validationResult} from 'express-validator';
+import userModel from '../models/User';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 
@@ -48,7 +49,12 @@ exports.messageList = async (req, res) => {
 // POST request create message
 exports.messageCreate = async (req, res) => { 
 
+  const usertoken = req.headers['x-access-token'];
+  const decoded = jwt.verify(usertoken, config.secret);
+  const userIdFromToken = decoded.id;
 
+
+  
   //validacion
   const errors = validationResult(req);
   if(!errors.isEmpty()){
@@ -58,7 +64,17 @@ exports.messageCreate = async (req, res) => {
     req.body.updated_at = Date.now();
     req.body.created_at = Date.now();
 
+    req.body.sender = userIdFromToken;
+
+
     const Message = new messageModel(req.body);
+
+    // const realState = await userModel.findOne({ _id: req.body.realState });
+
+    // realState.propertys.push(property._id);
+    // realState.save();
+
+
     const message = await Message.save();
 
     res.status(200).send({message})

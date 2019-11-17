@@ -8,6 +8,7 @@ const messageSchema = new Schema({
     default:''
   },
 
+
   created_at: {
     type: Date,
     dafault: Date.now()
@@ -20,6 +21,10 @@ const messageSchema = new Schema({
     type: Date
   },
   sender: {
+    type: String,
+    default: ''
+  },
+  propertyId: {
     type: String,
     default: ''
   },
