@@ -76,8 +76,8 @@ exports.messageCreate = async (req, res) => {
     
     const user = await userModel.findOne({ _id: userIdFromToken });
     console.log(user.messages)
-    // user.messages.push(message._id);
-    // user.save();
+    user.messages.push(message._id);
+    user.save();
     
     res.status(200).send({message})
     

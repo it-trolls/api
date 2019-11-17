@@ -5,11 +5,17 @@ var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
 
-  messages: { 
-    type: Schema.Types.ObjectId, 
-    ref: 'messages', 
-    // required: true 
-  },
+  // messages: { 
+  //   type: Schema.Types.ObjectId, 
+  //   ref: 'messages', 
+  //   // required: true 
+  // },
+
+  messages: [
+    { type: Schema.Types.ObjectId, 
+      ref: 'messages' 
+    }
+  ],
 
   username: {
     type: String,
