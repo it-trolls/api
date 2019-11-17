@@ -1,6 +1,7 @@
 import messageModel from '../models/Messages';
 import {validationResult} from 'express-validator';
 import jwt from 'jsonwebtoken';
+import config from '../config';
 
 
 
@@ -23,9 +24,17 @@ exports.messageDetail = async (req, res) => {
 
 // GET request for all message.
 exports.messageList = async (req, res) => {
+  
+  let query = messageModel.find({});
+  
+  const usertoken = req.headers['x-access-token'];
+  const decoded = jwt.verify(usertoken, config.secret);
+  const userIdFromToken = decoded.id;
+  query.find({ $or:[{"sender": userIdFromToken},{"receiver": userIdFromToken }]});
 
   try {
-    const messages = await messageModel.find({});
+    // const messages = await messageModel.find({});
+    const messages = await query.exec();;
     res.status(200).json(messages);
   } catch (error) {
     res.status(400).send({ 
