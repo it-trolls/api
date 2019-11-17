@@ -4,6 +4,13 @@ import uniqueValidator from 'mongoose-unique-validator';
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
+
+  messages: { 
+    type: Schema.Types.ObjectId, 
+    ref: 'messages', 
+    // required: true 
+  },
+
   username: {
     type: String,
     //required: true,
