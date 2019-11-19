@@ -90,7 +90,8 @@ exports.register = async (req, res) => {
         return res.status(200).send({
             register: true,
             message: 'successfully registered',
-            token: token
+            token: token,
+            id: user._id
         });
 
     } catch (error) {
