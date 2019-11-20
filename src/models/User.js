@@ -12,7 +12,8 @@ var userSchema = new Schema({
   // },
 
   messages: [
-    { type: Schema.Types.ObjectId, 
+    { 
+      type: Schema.Types.ObjectId, 
       ref: 'messages' 
     }
   ],

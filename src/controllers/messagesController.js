@@ -31,12 +31,26 @@ exports.messageList = async (req, res) => {
   const usertoken = req.headers['x-access-token'];
   const decoded = jwt.verify(usertoken, config.secret);
   const userIdFromToken = decoded.id;
-  query.find({ $or:[{"sender": userIdFromToken},{"receiver": userIdFromToken }]});
+  query.find({"receiver": userIdFromToken });
+
+  const user = await userModel.findOne({ _id: userIdFromToken })
+  .populate({ path: 'messages', model: messageModel })
+  
+//   const user = await userModel.findOne({ _id: userIdFromToken })
+//   .populate({ 
+//     path: 'messages',
+//     populate: {
+//       path: 'components',
+//       model: 'Component'
+//     } 
+//  })
+
 
   try {
     // const messages = await messageModel.find({});
     const messages = await query.exec();;
-    res.status(200).json(messages);
+    // res.status(200).json(messages);
+    res.status(200).json(user.messages);
   } catch (error) {
     res.status(400).send({ 
       success: false,
