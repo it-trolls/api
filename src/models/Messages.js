@@ -20,18 +20,28 @@ const messageSchema = new Schema({
   delete_at: {
     type: Date
   },
-  sender: {
-    type: String,
-    default: ''
-  },
   propertyId: {
     type: String,
     default: ''
   },
-  receiver: {
-    type: String,
-    default: ''
+
+  sender: { 
+    type: Schema.Types.ObjectId, 
+    ref: 'sender', 
   },
+
+  receiver: { 
+    type: Schema.Types.ObjectId, 
+    ref: 'receiver', 
+  },
+  // sender: {
+  //   type: String,
+  //   default: ''
+  // },
+  // receiver: {
+  //   type: String,
+  //   default: ''
+  // },
 
 });
 

@@ -33,17 +33,24 @@ exports.messageList = async (req, res) => {
   const userIdFromToken = decoded.id;
   query.find({"receiver": userIdFromToken });
 
-  const user = await userModel.findOne({ _id: userIdFromToken })
-  .populate({ path: 'messages', model: messageModel })
+  // const user = await userModel.findOne({ _id: userIdFromToken })
+  // .populate({ path: 'messages', model: messageModel })
   
-//   const user = await userModel.findOne({ _id: userIdFromToken })
-//   .populate({ 
-//     path: 'messages',
-//     populate: {
-//       path: 'components',
-//       model: 'Component'
-//     } 
-//  })
+  const user = await userModel.findOne({ _id: userIdFromToken })
+  .populate({ 
+    path: 'messages',
+    model:messageModel,
+    populate:[ {
+      path: 'sender',
+      model: userModel
+    } ,
+    {
+      path: 'receiver',
+      model: userModel
+    } ]
+ })
+
+ console.log(user);
 
 
   try {
